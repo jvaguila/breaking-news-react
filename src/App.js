@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Detail from "./pages/detail";
+import List from "./pages/list";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [showDetail, setShowDetail] = useState(false);
+	const [newsSelect, setnewsSelect] = useState({});
+	const handleNewsSelect = (item) => {
+		setnewsSelect(item);
+		setShowDetail(true);
+	};
+	const goBack = () => {
+		setShowDetail(false);
+	};
+	return (
+		<div>
+			{!showDetail && <List handleNewsSelect={handleNewsSelect} />}
+			{showDetail && <Detail news={newsSelect} goBack={goBack} />}
+		</div>
+	);
 }
 
 export default App;
